@@ -35,7 +35,7 @@ public class TestMasks extends TestCase {
 
         String CPF = "65267247871";
 
-        String result = QueensMask.getMask(QueensMask.CPF, CPF);
+        String result = QueensMask.getMaskWhitOutSuffix(QueensMask.CPF, CPF);
 
         String expected = "652.672.478-71";
 
@@ -47,7 +47,7 @@ public class TestMasks extends TestCase {
 
         String CPF = "6526";
 
-        String result = QueensMask.getMask(QueensMask.CPF, CPF);
+        String result = QueensMask.getMaskWhitOutSuffix(QueensMask.CPF, CPF);
 
         String expected = "652.6";
 
@@ -59,7 +59,7 @@ public class TestMasks extends TestCase {
 
         String phone = "6799321323";
 
-        String result = QueensMask.getMask(QueensMask.PHONE, phone);
+        String result = QueensMask.getMaskWhitOutSuffix(QueensMask.PHONE, phone);
 
         String expected = "(67) 9932-1323";
 
@@ -70,9 +70,9 @@ public class TestMasks extends TestCase {
     public void sould_return_a_partial_phone_number_mask(){
         String phone = "67";
 
-        String result = QueensMask.getMask(QueensMask.PHONE, phone);
+        String result = QueensMask.getMaskWhitOutSuffix(QueensMask.PHONE, phone);
 
-        String expected = "(67) ";
+        String expected = "(67";
 
         assertEquals(expected, result);
     }
@@ -82,9 +82,21 @@ public class TestMasks extends TestCase {
 
         String CNPJ = "24900500000148";
 
-        String result = QueensMask.getMask(QueensMask.CNPJ, CNPJ);
+        String result = QueensMask.getMaskWhitOutSuffix(QueensMask.CNPJ, CNPJ);
 
         String expected = "24.900.500/0001-48";
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void should_return_a_custom_masked_string_whit_suffix(){
+
+        String CNPJ = "11";
+
+        String result = QueensMask.getMaskWhitSuffix("...#/#...", CNPJ);
+
+        String expected = "...1/1...";
 
         assertEquals(expected, result);
     }

@@ -9,6 +9,11 @@ import android.widget.EditText;
  */
 public abstract class EditTextMask {
 
+
+    public static void addMask(String mask, EditText editText) {
+        editText.addTextChangedListener(getMaskedTextWatcher(mask, editText));
+    }
+
     public static TextWatcher getMaskedTextWatcher(final String mask, final EditText ediTxt) {
         return new TextWatcher() {
 
@@ -22,7 +27,7 @@ public abstract class EditTextMask {
                     return;
                 }
 
-                String maskedString = QueensMask.getMask(mask, string.toString());
+                String maskedString = QueensMask.getMaskWhitOutSuffix(mask, string.toString());
 
                 wasMasked = true;
                 ediTxt.setText(maskedString);

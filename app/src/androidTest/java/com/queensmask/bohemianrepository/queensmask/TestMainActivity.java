@@ -32,9 +32,9 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
     public void test_should_return_a_masked_CPF(){
 
         String CPF = "03221874197";
-        EditText cpf = (EditText) getActivity().findViewById(R.id.edit_text_cpf);
+        EditText cpf = (EditText) getActivity().findViewById(R.id.edit_text);
 
-        cpf.addTextChangedListener(EditTextMask.getMaskedTextWatcher(QueensMask.CPF, cpf));
+        EditTextMask.addMask(QueensMask.CPF, cpf);
         cpf.setText(CPF);
 
         String result = cpf.getText().toString();

@@ -19,21 +19,28 @@ public abstract class QueensMask {
                 .replaceAll("[)]", "").replaceAll("[ ]", "");
     }
 
-    public static String getMask(String mask, String string) {
+    public static String getMaskWhitSuffix(String mask, String string) {
 
         String unmaskedString = unmask(string);
-        return maskUnmaskedString(mask, unmaskedString);
+        return maskUnmaskedString(mask, unmaskedString, true);
     }
 
-    private static String maskUnmaskedString(String mask, String unmaskedString) {
+    public static String getMaskWhitOutSuffix(String mask, String string) {
+
+        String unmaskedString = unmask(string);
+        return maskUnmaskedString(mask, unmaskedString, false);
+    }
+
+    private static String maskUnmaskedString(String mask, String unmaskedString, boolean whitSuffix) {
 
         char[] unmaskedArray = unmaskedString.toCharArray();
+        int numberOfMaskCaracters = getNumberOfMaskCaracters(mask);
 
         StringBuilder maskedString = new StringBuilder("");
 
         int maskIndex = 0;
         int i = 0;
-        while (i < unmaskedArray.length) {
+        while (i < unmaskedArray.length && i < numberOfMaskCaracters) {
             if (maskIndex != '#'){
                 maskIndex = walkOverMask(maskIndex, mask, maskedString);
             }
@@ -41,16 +48,20 @@ public abstract class QueensMask {
             maskedString.append(unmaskedArray[i++]);
         }
 
-        if(hasMaskSuffix(mask, maskIndex)){
+        if(whitSuffix && hasMaskSuffix(mask, maskIndex)){
             walkOverMask(maskIndex, mask, maskedString);
         }
 
         return maskedString.toString();
     }
 
+    private static int getNumberOfMaskCaracters(String mask) {
+        return unmask(mask).length();
+    }
+
     private static int walkOverMask(int maskIndex, String mask, StringBuilder maskedString) {
         int j = maskIndex;
-        while( mask.charAt(j) != '#' ) {
+        while( j < mask.length() && mask.charAt(j) != '#' ) {
             maskedString.append(mask.charAt(j++));
         }
         return j;
