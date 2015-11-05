@@ -1,0 +1,40 @@
+package com.queensmask.bohemianrepository.queensmask.Utils;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+
+/**
+ * Created by Ueliton-PC on 04/11/2015.
+ */
+public abstract class EditTextMask {
+
+    public static TextWatcher getMaskedTextWatcher(final String mask, final EditText ediTxt) {
+        return new TextWatcher() {
+
+            boolean wasMasked;
+
+            public void onTextChanged(CharSequence string, int start, int before,
+                                      int count) {
+
+                if (wasMasked) {
+                    wasMasked = false;
+                    return;
+                }
+
+                String maskedString = QueensMask.getMask(mask, string.toString());
+
+                wasMasked = true;
+                ediTxt.setText(maskedString);
+                ediTxt.setSelection(maskedString.length());
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            public void afterTextChanged(Editable s) {
+            }
+        };
+    }
+}

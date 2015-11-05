@@ -9,51 +9,55 @@ import android.widget.EditText;
  */
 public abstract class QueensMask {
 
+    public static final String CPF = "###.###.###-##";
+    public static final String PHONE = "(##) ####-####";
+    public static final String CNPJ = "##.###.###/####-##";
+
     public static String unmask(String s) {
         return s.replaceAll("[.]", "").replaceAll("[-]", "")
                 .replaceAll("[/]", "").replaceAll("[(]", "")
-                .replaceAll("[)]", "");
+                .replaceAll("[)]", "").replaceAll("[ ]", "");
     }
 
-    public static TextWatcher insert(final String mask, final EditText ediTxt) {
-        return new TextWatcher() {
-            boolean isUpdating;
-            String old = "";
+    public static String getMask(String mask, String string) {
 
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                String str = QueensMask.unmask(s.toString());
-                String mascara = "";
-                if (isUpdating) {
-                    old = str;
-                    isUpdating = false;
-                    return;
-                }
-                int i = 0;
-                for (char m : mask.toCharArray()) {
-                    if (m != '#' && str.length() > old.length()) {
-                        mascara += m;
-                        continue;
-                    }
-                    try {
-                        mascara += str.charAt(i);
-                    } catch (Exception e) {
-                        break;
-                    }
-                    i++;
-                }
-                isUpdating = true;
-                ediTxt.setText(mascara);
-                ediTxt.setSelection(mascara.length());
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-            }
-
-            public void afterTextChanged(Editable s) {
-            }
-        };
+        String unmaskedString = unmask(string);
+        return maskUnmaskedString(mask, unmaskedString);
     }
 
+    private static String maskUnmaskedString(String mask, String unmaskedString) {
+
+        char[] unmaskedArray = unmaskedString.toCharArray();
+
+        StringBuilder maskedString = new StringBuilder("");
+
+        int maskIndex = 0;
+        int i = 0;
+        while (i < unmaskedArray.length) {
+            if (maskIndex != '#'){
+                maskIndex = walkOverMask(maskIndex, mask, maskedString);
+            }
+            maskIndex++;
+            maskedString.append(unmaskedArray[i++]);
+        }
+
+        if(hasMaskSuffix(mask, maskIndex)){
+            walkOverMask(maskIndex, mask, maskedString);
+        }
+
+        return maskedString.toString();
+    }
+
+    private static int walkOverMask(int maskIndex, String mask, StringBuilder maskedString) {
+        int j = maskIndex;
+        while( mask.charAt(j) != '#' ) {
+            maskedString.append(mask.charAt(j++));
+        }
+        return j;
+    }
+
+    private static boolean hasMaskSuffix(String mask, int maskIndex) {
+
+        return mask.length() > maskIndex;
+    }
 }
