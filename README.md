@@ -6,6 +6,8 @@ This project shows in the environment android implementations of masked fields o
 
 ## Examples
 
+![alt tag](https://github.com/BohemianRepository/QueensMask/blob/master/run_example.gif)
+
 For fields with the desired mask:
     **###.###.###-##** (A BRAZILIAN CPF MASK)
     
