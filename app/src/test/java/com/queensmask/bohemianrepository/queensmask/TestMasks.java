@@ -1,6 +1,6 @@
 package com.queensmask.bohemianrepository.queensmask;
 
-import com.queensmask.bohemianrepository.queensmask.Utils.QueensMask;
+import com.queensmask.bohemianrepository.queensmask.QueenMask.QueensMask;
 
 import junit.framework.TestCase;
 
@@ -31,7 +31,7 @@ public class TestMasks extends TestCase {
     }
 
     @Test
-    public void shoul_return_a_CPF_mask(){
+    public void should_return_a_CPF_mask(){
 
         String CPF = "65267247871";
 

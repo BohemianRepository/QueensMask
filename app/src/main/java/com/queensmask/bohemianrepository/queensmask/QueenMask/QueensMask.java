@@ -1,13 +1,54 @@
-package com.queensmask.bohemianrepository.queensmask.Utils;
+package com.queensmask.bohemianrepository.queensmask.QueenMask;
 
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.app.Activity;
+import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.queensmask.bohemianrepository.queensmask.MainActivity;
+import com.queensmask.bohemianrepository.queensmask.Utils.EditTextMask;
+
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Ueliton-PC on 03/11/2015.
  */
 public abstract class QueensMask {
+
+    public static void bind(Activity target) {
+        bind(target, target);
+    }
+
+    private static void bind(Activity classTarget, Activity source) {
+
+        Set<Field> set = new HashSet<>();
+        Class<?> clsName = classTarget.getClass();
+
+       for(Field field : clsName.getDeclaredFields()){
+//            if(field.isAnnotationPresent(QueenMask.class)){
+//                EditText text = (EditText) field.get(source);
+//                EditTextMask.addMask("###.###.###-##", text);
+//            }
+        }
+    }
+
+    /**
+     * Created by Ueliton-PC on 08/11/2015.
+     */
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    public @interface QueenMask {
+
+        String value();
+    }
 
     public static final String CPF = "###.###.###-##";
     public static final String PHONE = "(##) ####-####";

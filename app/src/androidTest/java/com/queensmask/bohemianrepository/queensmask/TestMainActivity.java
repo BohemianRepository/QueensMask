@@ -4,7 +4,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 
 import com.queensmask.bohemianrepository.queensmask.Utils.EditTextMask;
-import com.queensmask.bohemianrepository.queensmask.Utils.QueensMask;
+import com.queensmask.bohemianrepository.queensmask.QueenMask.QueensMask;
 
 import org.junit.Test;
 

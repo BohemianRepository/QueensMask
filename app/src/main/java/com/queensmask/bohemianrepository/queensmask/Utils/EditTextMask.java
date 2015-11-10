@@ -4,6 +4,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.queensmask.bohemianrepository.queensmask.QueenMask.QueensMask;
+
 /**
  * Created by Ueliton-PC on 04/11/2015.
  */

@@ -1,17 +1,14 @@
 package com.queensmask.bohemianrepository.queensmask;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.queensmask.bohemianrepository.queensmask.Utils.EditTextMask;
-import com.queensmask.bohemianrepository.queensmask.Utils.QueensMask;
+import com.queensmask.bohemianrepository.queensmask.QueenMask.QueensMask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,8 +18,12 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
+    @QueensMask.QueenMask("###.###.###-##")
     @Bind(R.id.edit_text)
     EditText cpf;
+
+    @QueensMask.QueenMask("###.###.###-##")
+    EditText rg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        ButterKnife.setDebug(true);
+        QueensMask.bind(this);
 
         setSupportActionBar(toolbar);
 
-        EditTextMask.addMask("###.###.###-##",  cpf);
+        //EditTextMask.addMask("###.###.###-##",  cpf);
     }
 
     @Override
